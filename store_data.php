@@ -6,7 +6,7 @@ if ($argc != 3) {
     exit(1);
 }
 
-$db = new PDO("mysql:host=127.0.0.1;dbname=cheesy_internet_monitor", "monitor", "gouda");
+require("config.php");
 
 switch ($argv[1]) {
     case "dns":
