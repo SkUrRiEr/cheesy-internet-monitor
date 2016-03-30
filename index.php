@@ -99,19 +99,19 @@ $outtime = $seconds;
 if ($seconds > 60) {
     $minutes = floor($seconds / 60);
     $seconds -= $minutes * 60;
-    $outtime = $minutes.":".$seconds;
+    $outtime = sprintf("%d:%02d", $minutes, $seconds);
 }
 
 if ($minutes > 60) {
     $hours = floor($minutes / 60);
     $minutes -= $hours * 60;
-    $outtime = $hours.":".$minutes.":".$seconds;
+    $outtime = sprintf("%d:%02d:%02d", $hours, $minutes, $seconds);
 }
 
 if ($hours > 24) {
     $days = floor($hours / 24);
     $hours -= $days * 24;
-    $outtime = $days." days, ".$hours.":".$minutes.":".$seconds;
+    $outtime = $days." days, ".sprintf("%d:%02d:%02d", $hours, $minutes, $seconds);
 }
 
 ?>
