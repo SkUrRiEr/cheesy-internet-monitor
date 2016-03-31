@@ -44,37 +44,37 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
 
 $status = "UP";
 $rebooting = false;
-$time = null;
+$eventtime = null;
 
 if ($row) {
     if ($row["conn_up"] == null && $row["dns_up"] == null && $row["conn_down"] != null && $row["dns_down"] != null) {
         $status = "DOWN";
 
-        $time = min(strtotime($row["conn_down"]), strtotime($row["dns_down"]));
+        $eventtime = min(strtotime($row["conn_down"]), strtotime($row["dns_down"]));
     } elseif ($row["conn_up"] == null && $row["conn_down"] != null) {
         $status = "CONN";
 
-        $time = strtotime($row["conn_down"]);
+        $eventtime = strtotime($row["conn_down"]);
     } elseif ($row["dns_up"] == null && $row["dns_down"] != null) {
         $status = "DNS";
 
-        $time = strtotime($row["conn_up"]);
+        $eventtime = strtotime($row["conn_up"]);
     } else {
         $status = "UP";
 
         if ($row["conn_up"] == null) {
-            $time = strtotime($row["dns_up"]);
+            $eventtime = strtotime($row["dns_up"]);
         } elseif ($row["dns_up"] == null) {
-            $time = strtotime($row["conn_up"]);
+            $eventtime = strtotime($row["conn_up"]);
         } else {
-            $time = max(strtotime($row["conn_up"]), strtotime($row["dns_up"]));
+            $eventtime = max(strtotime($row["conn_up"]), strtotime($row["dns_up"]));
         }
     }
 
     if ($row["reboot_start"] != null) {
         $rebooting = true;
 
-        $time = strtotime($row["reboot_start"]);
+        $eventtime = strtotime($row["reboot_start"]);
     }
 }
 
@@ -102,12 +102,9 @@ if ($status != "UP" && $rebooting) {
     $desc = "ROUTER REBOOTING...";
 }
 
-$uptime = time() - $time;
-
 ?>
         <script type="text/javascript">
-var uptime = <?php echo $uptime ?>;
-var curtime = Date.now() / 1000;
+var eventtime = <?php echo $eventtime ?>;
 var lasttime = -1;
 
 function format2digit(val) {
@@ -119,7 +116,7 @@ function format2digit(val) {
 function timetick() {
     var now = Date.now() / 1000;
 
-    var seconds = Math.round(uptime + now - curtime);
+    var seconds = Math.round(now - eventtime);
 
     if (seconds != lasttime) {
         lasttime = seconds;
