@@ -58,7 +58,7 @@ if ($row) {
     } elseif ($row["dns_up"] == null && $row["dns_down"] != null) {
         $status = "DNS";
 
-        $eventtime = strtotime($row["conn_up"]);
+        $eventtime = strtotime($row["dns_down"]);
     } else {
         $status = "UP";
 
