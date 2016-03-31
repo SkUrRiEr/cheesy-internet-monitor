@@ -1,24 +1,33 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Iedex Internet Monitor</title>
         <meta http-equiv="refresh" content="30" />
         <style>
-h1.emoticon {
+.emoticon {
     font-size: 20em;
-    text-align: center;
     margin: 0px;
 }
 
-h2.desc {
+.desc {
     margin: 0px;
-    text-align: center;
-    font-size: 5em;
+    font-size: 20em;
+    white-space: pre;
 }
 
-h3.time {
-    font-size: 2em;
-    text-align: center;
+.time {
+    font-size: 20em;
     margin: 0px;
+    white-space: pre;
+}
+
+p, body {
+    margin: 0px;
+}
+
+body {
+    text-align: center;
+    overflow: hidden;
 }
         </style>
         <script src="jQuery/jquery.js" type="text/javascript">
@@ -138,19 +147,91 @@ function timetick() {
             outtime = days + " days, " + hours + ":" + minutes + ":" + seconds;
         }
 
-        $("h3.time").html("For " + outtime);
+        $(".time").html("For " + outtime);
     }
+
+    resizeFn();
 
     window.requestAnimationFrame(timetick);
 }
 
 $(timetick);
 
+/* emoticon: 70%
+ * desc: 20%
+ * time: 10%
+ */
+
+function resizeFn() {
+    var width = $(window).innerWidth();
+    var height = $(window).innerHeight() - 10;
+
+    var emot = $(".emoticon");
+    var desc = $(".desc");
+    var time = $(".time");
+
+    var max_efs = Math.floor(parseInt(emot.css("font-size")) * width / emot.width());
+    var max_dfs = Math.floor(parseInt(desc.css("font-size")) * width / desc.width());
+    var max_tfs = Math.floor(parseInt(time.css("font-size")) * width / time.width());
+
+    var efs = Math.floor(height * 0.7);
+    var dfs = Math.floor(height * 0.2);
+    var tfs = Math.floor(height * 0.1);
+
+    if (efs > max_efs) {
+        efs = max_efs;
+
+        dfs = Math.floor(efs * 2 / 7);
+
+        if (dfs > max_dfs) {
+            dfs = max_dfs;
+        }
+
+        tfs = Math.floor(dfs / 2);
+
+        if (tfs > max_tfs) {
+            tfs = max_tfs;
+        }
+    } else if (dfs > max_dfs) {
+        dfs = max_dfs;
+
+        tfs = Math.floor(dfs / 2);
+
+        if (tfs > max_tfs) {
+            tfs = max_tfs;
+        }
+
+        efs = Math.min(height - dfs - tfs, max_efs);
+    } else if (tfs > max_tfs) {
+        tfs = max_tfs;
+
+        efs = Math.min(height - dfs - tfs, max_efs);
+    }
+
+    emot.css({
+        fontSize: efs + "px",
+        lineHeight: efs + "px"
+    });
+
+    desc.css({
+        fontSize: dfs + "px",
+        lineHeight: dfs + "px"
+    });
+
+    time.css({
+        fontSize: tfs + "px",
+        lineHeight: tfs + "px"
+    });
+}
+
+$(resizeFn);
+
+$(window).resize(resizeFn);
         </script>
     </head>
     <body style="background-color: <?php echo $colour ?>">
-        <h1 class="emoticon"><?php echo $emoticon ?></h1>
-        <h2 class="desc"><?php echo $desc ?></h2>
-        <h3 class="time">For ...</h3>
+        <div><span class="emoticon"><?php echo $emoticon ?></span></div>
+        <div><span class="desc"><?php echo $desc ?></span></div>
+        <div><span class="time">For ...</span></div>
     </body>
 </html>
