@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Iedex Internet Monitor</title>
-        <meta http-equiv="refresh" content="5" />
+        <meta http-equiv="refresh" content="30" />
         <style>
 h1.emoticon {
     font-size: 20em;
@@ -21,7 +21,8 @@ h3.time {
     margin: 0px;
 }
         </style>
-    </head>
+        <script src="jQuery/jquery.js" type="text/javascript">
+        </script>
 <?php
 
 require("config.php");
@@ -92,32 +93,64 @@ if ($status != "UP" && $rebooting) {
     $desc = "REBOOTING...";
 }
 
-$uptime = $seconds = time() - $time;
-
-$outtime = $seconds;
-
-if ($seconds > 60) {
-    $minutes = floor($seconds / 60);
-    $seconds -= $minutes * 60;
-    $outtime = sprintf("%d:%02d", $minutes, $seconds);
-}
-
-if ($minutes > 60) {
-    $hours = floor($minutes / 60);
-    $minutes -= $hours * 60;
-    $outtime = sprintf("%d:%02d:%02d", $hours, $minutes, $seconds);
-}
-
-if ($hours > 24) {
-    $days = floor($hours / 24);
-    $hours -= $days * 24;
-    $outtime = $days." days, ".sprintf("%d:%02d:%02d", $hours, $minutes, $seconds);
-}
+$uptime = time() - $time;
 
 ?>
+        <script type="text/javascript">
+var uptime = <?php echo $uptime ?>;
+var curtime = Date.now() / 1000;
+var lasttime = -1;
+
+function format2digit(val) {
+    var prefix = "00" + val;
+
+    return prefix.slice(-2);
+}
+
+function timetick() {
+    var now = Date.now() / 1000;
+
+    var seconds = Math.round(uptime + now - curtime);
+
+    if (seconds != lasttime) {
+        lasttime = seconds;
+
+        var minutes;
+        var hours;
+        var days;
+        var outtime = seconds + " seconds";
+
+        if (seconds > 60) {
+            minutes = Math.floor(seconds / 60);
+            seconds = format2digit(seconds - minutes * 60);
+            outtime = minutes + ":" + seconds;
+        }
+
+        if (minutes > 60) {
+            hours = Math.floor(minutes / 60);
+            minutes = format2digit(minutes - hours * 60);
+            outtime = hours + ":" + minutes + ":" + seconds;
+        }
+
+        if (hours > 24) {
+            days = Math.floor(hours / 24);
+            hours -= days * 24;
+            outtime = days + " days, " + hours + ":" + minutes + ":" + seconds;
+        }
+
+        $("h3.time").html("For " + outtime);
+    }
+
+    window.requestAnimationFrame(timetick);
+}
+
+$(timetick);
+
+        </script>
+    </head>
     <body style="background-color: <?php echo $colour ?>">
         <h1 class="emoticon"><?php echo $emoticon ?></h1>
         <h2 class="desc"><?php echo $desc ?></h2>
-        <h3 class="time">For <?php echo $outtime ?></h3>
+        <h3 class="time">For ...</h3>
     </body>
 </html>
