@@ -102,6 +102,10 @@ if ($status != "UP" && $rebooting) {
     $desc = "ROUTER REBOOTING...";
 }
 
+if ($eventtime == null) {
+    $eventtime = time();
+}
+
 ?>
         <script type="text/javascript">
 var eventtime = <?php echo $eventtime ?>;
