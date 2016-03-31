@@ -30,7 +30,7 @@ CREATE TABLE `conlog` (
   `conn_up` datetime DEFAULT NULL,
   `reboot_start` datetime DEFAULT NULL,
   PRIMARY KEY (`eventID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
