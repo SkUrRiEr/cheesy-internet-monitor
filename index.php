@@ -99,7 +99,7 @@ switch ($status) {
 
 if ($status != "UP" && $rebooting) {
     $emoticon = "&#x1f5d8;";
-    $desc = "REBOOTING...";
+    $desc = "ROUTER REBOOTING...";
 }
 
 $uptime = time() - $time;
