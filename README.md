@@ -42,6 +42,7 @@ $db = new PDO("mysql:host=127.0.0.1;dbname=cheesy_internet_monitor", "monitor", 
 ## Hacking to suit your particular setup
 
 `check_connectivity.sh` has all the actual monitoring code in it. By default, this expects to:
+
 1. Be able to resolve www.google.com on your router at 192.168.100.254
 2. Be able to ping 8.8.8.8 (One of Google's public DNS servers)
 3. Find a file at `/tmp/wait_for_modem.stamp` when your router starts rebooting
@@ -73,17 +74,19 @@ For each instance of connectivity or DNS going down, only the first down, reboot
 
 I.e. the following sequence of events:
 
-12:13 `store_data.php dns down`
-12:14 `store_data.php dns down`
-12:15 `store_data.php dns up`
-12:16 `store_data.php conn down`
-12:17 `store_data.php conn down`
-12:18 `store_data.php dns down`
-12:19 `store_data.php reboot start`
-12:20 `store_data.php conn up`
-12:21 `store_data.php dns up`
-12:22 `store_data.php conn up`
-12:23 `store_data.php dns up`
+```
+12:13 store_data.php dns down
+12:14 store_data.php dns down
+12:15 store_data.php dns up
+12:16 store_data.php conn down
+12:17 store_data.php conn down
+12:18 store_data.php dns down
+12:19 store_data.php reboot start
+12:20 store_data.php conn up
+12:21 store_data.php dns up
+12:22 store_data.php conn up
+12:23 store_data.php dns up
+```
 
 Would result in two records:
 
