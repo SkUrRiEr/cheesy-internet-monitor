@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Iedex Internet Monitor</title>
-        <meta http-equiv="refresh" content="30" />
+        <meta http-equiv="refresh" content="10" />
         <style>
 .emoticon {
     font-size: 20em;
