@@ -163,9 +163,15 @@ $(timetick);
  * time: 10%
  */
 
+var lastimgwidth = 0;
+
 function resizeFn() {
+    var img = $("#graph");
+
     var width = $(window).innerWidth();
     var height = $(window).innerHeight() - 10;
+
+    height -= img.height();
 
     var emot = $(".emoticon");
     var desc = $(".desc");
@@ -223,6 +229,11 @@ function resizeFn() {
         fontSize: tfs + "px",
         lineHeight: tfs + "px"
     });
+
+    if (img.width() != lastimgwidth) {
+        lastimgwidth = img.width();
+        img.attr("src", "graph.php?width=" + img.width());
+    }
 }
 
 $(resizeFn);
@@ -234,5 +245,6 @@ $(window).resize(resizeFn);
         <div><span class="emoticon"><?php echo $emoticon ?></span></div>
         <div><span class="desc"><?php echo $desc ?></span></div>
         <div><span class="time">For ...</span></div>
+        <p><img id="graph" style="width: 100%" src="" height="100" /></p>
     </body>
 </html>

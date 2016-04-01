@@ -6,24 +6,29 @@ This consists of:
  - `check_connectivity.sh` which does the actual internet monitoring,
  - `store_data.php` which stores different state into the database,
  - `config.php` which contains the database configuration and
- - `index.php` which is a simple monitoring website.
+ - `index.php` which is a simple monitoring website with a graph.
 
 ## Dependencies
 
  - PHP
    - PDO
    - MySQL PDO module
+   - GD (optional)
  - A MySQL database initialised with the database schema in `db_schema.sql`
  - A web server to run the monitor page on (optional)
  - jQuery for the javascript parts (optional)
+
+Optional parts are required for the monitoring page.
 
 ## Installation
 
 1. Put the files somewhere your webserver can see (optional)
 2. Create a directory called `jQuery` and extract a jQuery release into it (optional)
 3. Initialise a database with `db_schema.sql`
-4. Modify `config.php` with the database configuration
+4. Modify `config.php` with the database configuration and a path to a font (font optional)
 5. Arrange for `check_connectivity.sh` to be called periodically
+
+Optional parts are required for the monitoring page.
 
 ## Example config files
 
@@ -32,6 +37,7 @@ This consists of:
 <?php
 
 $db = new PDO("mysql:host=127.0.0.1;dbname=cheesy_internet_monitor", "monitor", "gouda");
+$font = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
 ```
 
 `crontab` - for running this periodically with cron
