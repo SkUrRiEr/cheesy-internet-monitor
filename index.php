@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Iedex Internet Monitor</title>
         <meta http-equiv="refresh" content="10" />
         <style>
 .emoticon {
@@ -107,6 +106,7 @@ if ($eventtime == null) {
 }
 
 ?>
+        <title><?php echo $desc ?> - Iedex Internet Monitor</title>
         <script type="text/javascript">
 var eventtime = <?php echo $eventtime ?>;
 var lasttime = -1;
