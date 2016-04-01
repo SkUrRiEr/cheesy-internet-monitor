@@ -216,7 +216,7 @@ for ($i = 0; $i < 24; $i++) {
     $bbox = imageftbbox($fontsize, 0, $font, $hour);
     $toffset = ($bbox[2] - $bbox[0]) / 2;
 
-    if ($offset + $toffset + 2 < $last) {
+    if ($offset + $toffset + 2 < $last && $offset - $toffset > 2) {
         imagefttext($im, $fontsize, 0, $offset - $toffset, $fontoffset + $fontsize, $black, $font, $hour);
 
         $last = $offset - $toffset;
