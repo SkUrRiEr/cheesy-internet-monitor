@@ -8,21 +8,26 @@ $graphheight = 80;
 $tickheight = 4;
 $fontsize = $height - $graphheight - $tickheight - 3;
 $fontoffset = $graphheight + $tickheight + 1;
+$interval = 24; // Hours
 
-$resolution = 24 * 60 * 60 / $width; // seconds per pixel
+if (isset($_REQUEST["interval"]) && is_numeric($_REQUEST["interval"])) {
+    $interval = $_REQUEST["interval"];
+}
+
+$resolution = $interval * 60 * 60 / $width; // seconds per pixel
 
 $sql = "SELECT * FROM conlog
-    WHERE dns_down > DATE_SUB(NOW(), INTERVAL 1 DAY)
-        OR dns_up > DATE_SUB(NOW(), INTERVAL 1 DAY)
-        OR conn_down > DATE_SUB(NOW(), INTERVAL 1 DAY)
-        OR conn_up > DATE_SUB(NOW(), INTERVAL 1 DAY)
-        OR reboot_start > DATE_SUB(NOW(), INTERVAL 1 DAY)";
+    WHERE dns_down > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
+        OR dns_up > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
+        OR conn_down > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
+        OR conn_up > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
+        OR reboot_start > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)";
 
 $result = $db->query($sql);
 
 $timeline = array();
 
-$starttime = time() - 24 * 60 * 60;
+$starttime = time() - $interval * 60 * 60;
 
 function string2offset($str)
 {
@@ -192,10 +197,10 @@ imagerectangle($im, 0, 0, $width, $height - 1, $black);
 
 $last = $width - 1;
 
-for ($i = 0; $i < 24; $i++) {
+for ($i = 0; $i < $interval; $i++) {
     $hour = date("H") - $i;
 
-    if ($hour < 0) {
+    while ($hour < 0) {
         $hour += 24;
     }
 
