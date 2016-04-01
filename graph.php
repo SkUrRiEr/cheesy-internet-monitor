@@ -193,7 +193,7 @@ foreach ($timeline as $event) {
     }
 }
 
-imagerectangle($im, 0, 0, $width, $height - 1, $black);
+imagerectangle($im, 0, 0, $width - 1, $height - 1, $black);
 
 $last = $width - 1;
 
