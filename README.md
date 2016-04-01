@@ -101,4 +101,4 @@ Would result in two records:
 | 1         | 12:13      | 12:15    |             |           |                |
 | 2         | 12:18      | 12:21    | 12:16       | 12:20     | 12:19          |
 
-`index.php` takes the highest numbered event and formats it's data for display.
+`index.php` takes the newest event and formats it's data for display.

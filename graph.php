@@ -21,7 +21,8 @@ $sql = "SELECT * FROM conlog
         OR dns_up > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
         OR conn_down > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
         OR conn_up > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
-        OR reboot_start > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)";
+        OR reboot_start > DATE_SUB(NOW(), INTERVAL ".$interval." HOUR)
+    ORDER BY COALESCE(LEAST(dns_down, conn_down), dns_down, conn_down) ASC";
 
 $result = $db->query($sql);
 

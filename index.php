@@ -35,7 +35,7 @@ body {
 
 require("config.php");
 
-$sql = "SELECT * FROM conlog ORDER BY eventID DESC LIMIT 1";
+$sql = "SELECT * FROM conlog ORDER BY COALESCE(LEAST(dns_down, conn_down), dns_down, conn_down) DESC LIMIT 1";
 
 $result = $db->query($sql);
 

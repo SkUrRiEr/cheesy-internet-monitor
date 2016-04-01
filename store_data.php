@@ -13,7 +13,7 @@ switch ($argv[1]) {
         switch ($argv[2]) {
             case "up":
                 $sql = "UPDATE conlog SET dns_up = NOW() WHERE dns_up IS NULL AND dns_down IS NOT NULL
-                    ORDER BY eventID DESC LIMIT 1";
+                    ORDER BY COALESCE(LEAST(dns_down, conn_down), dns_down, conn_down) DESC LIMIT 1";
 
                 $db->exec($sql);
 
@@ -41,7 +41,7 @@ switch ($argv[1]) {
         switch ($argv[2]) {
             case "up":
                 $sql = "UPDATE conlog SET conn_up = NOW() WHERE conn_up IS NULL AND conn_down IS NOT NULL
-                    ORDER BY eventID DESC LIMIT 1";
+                    ORDER BY COALESCE(LEAST(dns_down, conn_down), dns_down, conn_down) DESC LIMIT 1";
 
                 $db->exec($sql);
 
