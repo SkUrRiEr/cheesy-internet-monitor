@@ -102,3 +102,7 @@ Would result in two records:
 | 2         | 12:18      | 12:21    | 12:16       | 12:20     | 12:19          |
 
 `index.php` takes the newest event and formats it's data for display.
+
+## Note
+
+`import.php` is deliberately undocumented as it is intended as an example of an importer from some other flat-file logging format.
