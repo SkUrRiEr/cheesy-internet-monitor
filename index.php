@@ -106,7 +106,7 @@ if ($eventtime == null) {
 }
 
 ?>
-        <title><?php echo $desc ?> - Iedex Internet Monitor</title>
+        <title><?php echo $desc ?> - Cheesy Internet Monitor</title>
         <script type="text/javascript">
 var eventtime = <?php echo $eventtime ?>;
 var lasttime = -1;
