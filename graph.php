@@ -32,6 +32,12 @@ $starttime = time() - $interval * 60 * 60;
 
 function string2offset($str)
 {
+    global $width;
+
+    if ($str == null) {
+        return $width;
+    }
+
     return time2offset(strtotime($str));
 }
 
@@ -62,7 +68,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         }
 
         $event["start"] = string2offset($start);
-        $event["end"] = $end == null ? $width : string2offset($end);
+        $event["end"] = string2offset($end);
 
         $endtime = $event["end"] + 1;
 
