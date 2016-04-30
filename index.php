@@ -105,10 +105,12 @@ if ($eventtime == null) {
     $eventtime = time();
 }
 
+$uptime = time() - $eventtime;
+
 ?>
         <title><?php echo $desc ?></title>
         <script type="text/javascript">
-var eventtime = <?php echo $eventtime ?>;
+var eventtime = (Date.now() / 1000) - <?php echo $uptime ?>;
 var lasttime = -1;
 
 function format2digit(val) {
