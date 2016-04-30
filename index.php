@@ -79,26 +79,26 @@ if ($row) {
 
 switch ($status) {
     case "UP":
-        $emoticon = "&#x1f601;";
+        $emoticon = "&#x1f638;";
         $colour = "#00FF00";
-        $desc = "UP";
+        $desc = "IS HAS INTERNETS!!!";
         break;
     case "DOWN":
-        $emoticon = "&#x1f620;";
+        $emoticon = "&#x1f63e;";
         $colour = "#FF0000";
-        $desc = "DOWN!!!";
+        $desc = "IS NOT HAS INTERNETS!!";
         break;
     case "DNS":
     case "CONN":
-        $emoticon = "&#x1f631;";
+        $emoticon = "&#x1f63f;";
         $colour = "#FF7700";
-        $desc = "DOWN!";
+        $desc = "MAYBE IS NOT HAS INTERNETS!";
         break;
 }
 
 if ($status != "UP" && $rebooting) {
     $emoticon = "&#x1f5d8;";
-    $desc = "ROUTER REBOOTING...";
+    $desc = "IS REBOOTS!";
 }
 
 if ($eventtime == null) {
@@ -106,7 +106,7 @@ if ($eventtime == null) {
 }
 
 ?>
-        <title><?php echo $desc ?> - Cheesy Internet Monitor</title>
+        <title><?php echo $desc ?></title>
         <script type="text/javascript">
 var eventtime = <?php echo $eventtime ?>;
 var lasttime = -1;
