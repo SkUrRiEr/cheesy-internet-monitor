@@ -106,7 +106,11 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
         $endtime = $part_end + 1;
 
-        $reboot_time = string2offset($row["conn_up"]);
+        if ($row["reboot_start"] != null) {
+            $reboot_time = string2offset($row["reboot_start"]);
+        } else {
+            $reboot_time = null;
+        }
 
         if ($part_start < $full_start) {
             $event = array(
@@ -115,7 +119,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 "end" => $full_start - 1
             );
 
-            if ($reboot_time < $full_start) {
+            if ($reboot_time && $reboot_time < $full_start) {
                 $event["reboot"] = $reboot_time;
             }
 
@@ -129,7 +133,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 "end" => $full_end
             );
 
-            if ($reboot_time >= $full_start && $reboot_time <= $full_end) {
+            if ($reboot_time && $reboot_time >= $full_start && $reboot_time <= $full_end) {
                 $event["reboot"] = $reboot_time;
             }
 
@@ -143,7 +147,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 "end" => $part_end
             );
 
-            if ($reboot_time > $full_end) {
+            if ($reboot_time && $reboot_time > $full_end) {
                 $event["reboot"] = $reboot_time;
             }
 
