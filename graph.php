@@ -2,7 +2,12 @@
 
 require("config.php");
 
-$width = $_REQUEST["width"];
+if (isset($_REQUEST["width"])) {
+    $width = $_REQUEST["width"];
+} else {
+    $width = 1200;
+}
+
 $height = 100;
 $graphheight = 80;
 $tickheight = 4;
