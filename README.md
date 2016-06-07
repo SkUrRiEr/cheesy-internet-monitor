@@ -5,8 +5,9 @@ A cheesy internet monitor that can interract with [my Netgear modem rebooter](ht
 This consists of:
  - `check_connectivity.sh` which does the actual internet monitoring,
  - `store_data.php` which stores different state into the database,
- - `config.php` which contains the database configuration and
- - `index.php` which is a simple monitoring website with a graph.
+ - `config.php` which contains the database configuration,
+ - `index.php` which is a simple monitoring website with a graph and
+ - `api.php` which provides a simple JSON API.
 
 ## Dependencies
 
@@ -44,6 +45,53 @@ $font = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
 ```
 */1 * * * * /home/stilton/internetmonitor/check_connectivity.sh
 ```
+
+## API
+
+api.php provides an extremely basic JSON API.
+
+The api is called like this:
+
+```
+http://server/path/api.php?token=1465263374
+```
+
+Options:
+ - token: optional token from the last successful call.
+
+If no token is provided, it returns the latest record, otherwise it returns the record with that token and any newer records.
+
+Data looks like this:
+```
+{"data":[{"dns_down":"1465263431","conn_down":"1465263374","dns_up":"1465263601","conn_up":"1465263604","reboot_start":"1465263464","token":"1465263374"},{"dns_down":"1465264151","conn_down":"1465264164","dns_up":"1465264261","conn_up":"1465264264","reboot_start":null,"token":"1465264151"}],"count":2,"last_token":"1465264151"}
+```
+
+Where we have an overall structure consisting of:
+ - `data`: data as explained below
+ - `count`: number of records returned
+ - `last_token`: newest token listed in the data
+
+The `data` member consists of a number of records like so:
+ - `dns_down`: DNS down time as a unix timestamp
+ - `conn_down`: Connectivity down time as a unix timestamp
+ - `dns_up`: DNS up time as a unix timestamp
+ - `conn_up`: Connectivity up time as a unix timestamp
+ - `reboot_start`: Reboot start time as a unix timestamp
+ - `token`: Token of this record
+
+Tokens are an "opaque" reference to a record. (They're actually the unix timestamp of the earliest down time of a record.)
+
+### Usage
+
+You're expected to use this API like so:
+
+1. Call it with no token to get the latest record if there are any.
+2. Process that record and record the token provided in `last_token`.
+3. Call it again with the recorded token.
+4. Receive 1 or more records.
+5. Process the records returned including updating the record with the token provided in step 3.
+6. Record the token provided in `last_token`.
+7. Repeat from step 3.
 
 ## Hacking to suit your particular setup
 
