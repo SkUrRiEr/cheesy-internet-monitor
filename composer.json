@@ -1,0 +1,12 @@
+{
+    "name": "skurrier/internetmonitor",
+    "description": "A cheesy internet monitor",
+    "license": "GPL-3",
+    "authors": [
+        {
+            "name": "Julian Calaby",
+            "email": "julian.calaby@gmail.com"
+        }
+    ],
+    "require": {}
+}
