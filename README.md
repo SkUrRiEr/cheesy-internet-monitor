@@ -18,6 +18,7 @@ This consists of:
  - A MySQL database initialised with the database schema in `db_schema.sql`
  - A web server to run the monitor page on (optional)
  - jQuery for the javascript parts (optional)
+ - A MQTT server (optional)
 
 Optional parts are required for the monitoring page.
 
@@ -26,10 +27,30 @@ Optional parts are required for the monitoring page.
 1. Put the files somewhere your webserver can see (optional)
 2. Create a directory called `jQuery` and extract a jQuery release into it (optional)
 3. Initialise a database with `db_schema.sql`
-4. Modify `config.php` with the database configuration and a path to a font (font optional)
-5. Arrange for `check_connectivity.sh` to be called periodically
+4. Run `composer install`
+5. Modify `config.php` with the database configuration (mandatory), a path to a font (optional) and any MQTT settings (optional)
+6. Arrange for `check_connectivity.sh` to be called periodically
 
 Optional parts are required for the monitoring page.
+
+### MQTT configuration
+
+```
+$mqtt = array(
+    "server" => "big-fromage.local",
+    "port" => 1883,
+    "clientID" => "cheesyinternetmonitor"
+);
+```
+
+Parameters:
+ - server: the IP address or name of a server
+ - port: the port the MQTT server is listening on
+ - clientID: a unique ID for this client
+ - tls: true to use TLS encryption
+ - cafile: CA certificate file for self-signed certificates
+
+If `$mqtt` is set to `null`, then the code will not attempt to publish status updates over MQTT.
 
 ## Example config files
 
@@ -39,6 +60,11 @@ Optional parts are required for the monitoring page.
 
 $db = new PDO("mysql:host=127.0.0.1;dbname=cheesy_internet_monitor", "monitor", "gouda");
 $font = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
+$mqtt = array(
+    "server" => "big-fromage.local",
+    "port" => 1883,
+    "clientID" => "cheesyinternetmonitor"
+);
 ```
 
 `crontab` - for running this periodically with cron

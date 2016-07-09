@@ -8,5 +8,7 @@
             "email": "julian.calaby@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "mcfish/libmqtt": ">=0.2.1"
+    }
 }
