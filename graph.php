@@ -182,6 +182,7 @@ $white = imagecolorallocate($im, 255, 255, 255);
 imagefill($im, 0, 0, $white);
 
 $green = imagecolorallocate($im, 0, 255, 0);
+$yellow = imagecolorallocate($im, 255, 255, 0);
 $orange = imagecolorallocate($im, 255, 119, 0);
 $red = imagecolorallocate($im, 255, 0, 0);
 $black = imagecolorallocate($im, 0, 0, 0);
@@ -195,6 +196,8 @@ foreach ($timeline as $event) {
             $colour = $red;
             break;
         case "DNS":
+            $colour = $yellow;
+            break;
         case "CONN":
             $colour = $orange;
             break;

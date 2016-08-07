@@ -89,6 +89,10 @@ switch ($status) {
         $desc = "IS NOT HAS INTERNETS!!";
         break;
     case "DNS":
+        $emoticon = "&#x1f63f;";
+        $colour = "#FFFF00";
+        $desc = "MAYBE IS NOT HAS INTERNETS!";
+        break;
     case "CONN":
         $emoticon = "&#x1f63f;";
         $colour = "#FF7700";
