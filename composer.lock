@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "13c1f5b81c1acab4c49aedcb33703338",
-    "content-hash": "49e544d8691313581684c9a65fd66e6b",
+    "hash": "b1e467dc7ea7ca4d4ed3e3a1c7a3bf2a",
+    "content-hash": "a1e2aa389aeb9f28af4b8db5db0e6ebd",
     "packages": [
         {
             "name": "mcfish/libmqtt",
-            "version": "0.2.1",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/McFizh/libMQTT.git",
-                "reference": "954a8bfcd93e39f305d737ef21b5a3508e3d85f1"
+                "reference": "225e2efcd4f3ee4496c3b0d603d465766c69e68d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/McFizh/libMQTT/zipball/954a8bfcd93e39f305d737ef21b5a3508e3d85f1",
-                "reference": "954a8bfcd93e39f305d737ef21b5a3508e3d85f1",
+                "url": "https://api.github.com/repos/McFizh/libMQTT/zipball/225e2efcd4f3ee4496c3b0d603d465766c69e68d",
+                "reference": "225e2efcd4f3ee4496c3b0d603d465766c69e68d",
                 "shasum": ""
             },
             "type": "library",
@@ -42,7 +42,7 @@
                 "mqtt",
                 "php"
             ],
-            "time": "2016-04-03 11:08:42"
+            "time": "2016-08-01 18:15:34"
         }
     ],
     "packages-dev": [],

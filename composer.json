@@ -9,6 +9,6 @@
         }
     ],
     "require": {
-        "mcfish/libmqtt": ">=0.2.1"
+        "mcfish/libmqtt": ">=0.3.0"
     }
 }
