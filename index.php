@@ -4,18 +4,18 @@
         <meta http-equiv="refresh" content="10" />
         <style>
 .emoticon {
-    font-size: 20em;
+    font-size: 10em;
     margin: 0px;
 }
 
 .desc {
     margin: 0px;
-    font-size: 20em;
+    font-size: 10em;
     white-space: pre;
 }
 
 .time {
-    font-size: 20em;
+    font-size: 10em;
     margin: 0px;
     white-space: pre;
 }
@@ -183,13 +183,21 @@ function resizeFn() {
     var desc = $(".desc");
     var time = $(".time");
 
-    var max_efs = Math.floor(parseInt(emot.css("font-size")) * width / emot.width());
-    var max_dfs = Math.floor(parseInt(desc.css("font-size")) * width / desc.width());
-    var max_tfs = Math.floor(parseInt(time.css("font-size")) * width / time.width());
+    var efs = parseInt(emot.css("font-size"));
+    var dfs = parseInt(desc.css("font-size"));
+    var tfs = parseInt(time.css("font-size"));
 
-    var efs = Math.floor(height * 0.7);
-    var dfs = Math.floor(height * 0.2);
-    var tfs = Math.floor(height * 0.1);
+    height -= emot.height() - efs;
+    height -= desc.height() - dfs;
+    height -= time.height() - tfs;
+
+    var max_efs = Math.floor(efs * width / emot.width());
+    var max_dfs = Math.floor(dfs * width / desc.width());
+    var max_tfs = Math.floor(tfs * width / time.width());
+
+    efs = Math.floor(height * 0.7);
+    dfs = Math.floor(height * 0.2);
+    tfs = Math.floor(height * 0.1);
 
     if (efs > max_efs) {
         efs = max_efs;
@@ -223,17 +231,14 @@ function resizeFn() {
 
     emot.css({
         fontSize: efs + "px",
-        lineHeight: efs + "px"
     });
 
     desc.css({
         fontSize: dfs + "px",
-        lineHeight: dfs + "px"
     });
 
     time.css({
         fontSize: tfs + "px",
-        lineHeight: tfs + "px"
     });
 
     if (img.width() != lastimgwidth) {
